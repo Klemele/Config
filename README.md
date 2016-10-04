@@ -2,6 +2,6 @@
 
  *Commit normalization*
  A commit shall be writen has follow:
-  - 'OS_element-name_type-of-conf'
+  - 'OS_element-name_type-of-conf: {some comment}'
 
 
