@@ -250,7 +250,7 @@ let g:syntastic_javascript_checkers = ['jshint']
 
 " ================UtilsSnips
 let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsExpandTrigger="<CR>"
+let g:UltiSnipsExpandTrigger="<C-j>"
 
 
 "
