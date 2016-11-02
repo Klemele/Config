@@ -22,12 +22,7 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-" plugin from http://vim-scripts.org/vim/scripts.html
-Plugin 'L9'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-
+Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -86,10 +81,16 @@ set magic
 
 " Show matching brackets when text indicator is over them
 set showmatch 
+
 " How many tenths of a second to blink when matching brackets
 set mat=2
 
+" Show line number
 set nu
+
+" Set title to path of file in edition
+set title
+
 
 "
 " <===================== Colors and Fonts  ======================> 
@@ -214,9 +215,6 @@ endtry
 " Always show the status line
 set laststatus=2
 
-" Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
-
 
 "
 " <===================== Spell checking  ======================> 
@@ -252,8 +250,7 @@ let g:syntastic_javascript_checkers = ['jshint']
 
 " ================UtilsSnips
 let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsExpandTrigger="<space>"
-au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+let g:UltiSnipsExpandTrigger="<CR>"
 
 
 "
@@ -283,23 +280,4 @@ function! VisualSelection(direction, extra_filter) range
 
     let @/ = l:pattern
     let @" = l:saved_reg
-endfunction
-
-" UltiSnips completion function that tries to expand a snippet. If there's no
-" snippet for expanding, it checks for completion window and if it's
-" shown, selects first element. If there's no completion window it tries to
-" jump to next placeholder. If there's no placeholder it just returns TAB key 
-function! g:UltiSnips_Complete()
-    call UltiSnips#ExpandSnippet()
-    if g:ulti_expand_res == 0
-        if pumvisible()
-            return "\<C-n>"
-        else
-            call UltiSnips#JumpForwards()
-            if g:ulti_jump_forwards_res == 0
-               return "\<TAB>"
-            endif
-        endif
-    endif
-    return ""
 endfunction
