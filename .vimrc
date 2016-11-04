@@ -22,6 +22,7 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
+Plugin 'Chiel92/vim-autoformat'
 Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -36,6 +37,33 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
+
+
+"
+" <===================== Plugin Conf ======================> 
+"
+
+" =================YouCompleteMe
+let g:ycm_path_to_python_interpreter = '/usr/bin/python'
+
+" =================Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers = ['jshint']
+
+" ================UtilsSnips
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsExpandTrigger="<C-j>"
+
+" ================VimAutoFormat
+noremap <F3> :Autoformat<CR>
+let g:autoformat_verbosemode=1
 
 
 "
@@ -91,10 +119,15 @@ set nu
 " Set title to path of file in edition
 set title
 
+" Show invisible character
+set list
 
 "
 " <===================== Colors and Fonts  ======================> 
 "
+
+" Enable colum ruler
+set cc=120
 
 " Enable syntax highlighting
 syntax on
@@ -127,7 +160,7 @@ set expandtab
 " Be smart when using tabs ;)
 set smarttab
 
-" 1 tab == 4 spaces
+" 1 tab == 2 spaces
 set shiftwidth=2
 set tabstop=2
 
@@ -228,29 +261,6 @@ map <leader>sn ]s
 map <leader>sp [s
 map <leader>sa zg
 map <leader>s? z=
-
-
-"
-" <===================== Plugin Conf ======================> 
-"
-
-" =================YouCompleteMe
-let g:ycm_path_to_python_interpreter = '/usr/bin/python'
-
-" =================Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_javascript_checkers = ['jshint']
-
-" ================UtilsSnips
-let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsExpandTrigger="<C-j>"
 
 
 "
