@@ -65,6 +65,11 @@ let g:UltiSnipsExpandTrigger="<C-j>"
 noremap <F3> :Autoformat<CR>
 let g:autoformat_verbosemode=1
 
+" ================vim-javascript
+let g:javascript_plugin_jsdoc = 1
+
+" ================tern_for_vim
+noremap <C-x> :TernDef<CR>
 
 "
 " <===================== General  =====================>
