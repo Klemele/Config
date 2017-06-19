@@ -1,0 +1,13 @@
+{
+  "libs": [
+    "browser",
+    "underscore"
+  ],
+  "plugins": {
+    "angular": {},
+    "requirejs": {
+      "baseURL": "./",
+      "paths": {}
+    }
+  }
+}
