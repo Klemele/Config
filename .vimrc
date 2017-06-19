@@ -15,14 +15,20 @@ Plugin 'VundleVim/Vundle.vim'
 " plugin on GitHub repo
 Plugin 'tpope/vim-fugitive'
 Plugin 'vim-scripts/restore_view.vim'
-Plugin 'pangloss/vim-javascript'
+Plugin 'vim-scripts/SyntaxComplete'
+Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'othree/yajs.vim'
+Plugin 'othree/html5.vim'
 Plugin 'scrooloose/syntastic'
-Plugin 'ternjs/tern_for_vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'Chiel92/vim-autoformat'
+Plugin 'elzr/vim-json'
+Plugin 'heavenshell/vim-jsdoc'
+
+Plugin 'tomasr/molokai'
 Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -40,22 +46,29 @@ filetype plugin indent on    " required
 
 
 "
-" <===================== Plugin Conf ======================> 
-"
+" <===================== Plugin Conf ======================>
 
-" =================YouCompleteMe
-let g:ycm_path_to_python_interpreter = '/usr/bin/python'
+" =================SyntaxComplete
+if has("autocmd") && exists("+omnifunc")
+  autocmd Filetype *
+        \ if &omnifunc == "" |
+        \   setlocal omnifunc=syntaxcomplete#Complete |
+        \ endif
+endif
+
+" =================YouCompleteMe$                                                                                       
+
+" =================javascript-libraries-syntax.vim'
+let g:used_javascript_libs = 'underscore,angularjs,angularuirouter,jquery'
+let g:ycm_min_num_of_chars_for_completion = 1
 
 " =================Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_javascript_checkers = ['jshint', 'eslint']
+let g:syntastic_html_checkers = ['jshint', 'eslint', 'tidy']
 
 " ================UtilsSnips
 let g:UltiSnipsEditSplit="vertical"
@@ -68,8 +81,8 @@ let g:autoformat_verbosemode=1
 " ================vim-javascript
 let g:javascript_plugin_jsdoc = 1
 
-" ================tern_for_vim
-noremap <C-x> :TernDef<CR>
+" ================vim-json
+let g:vim_json_syntax_conceal = 0
 
 "
 " <===================== General  =====================>
@@ -89,9 +102,9 @@ set wildmode=longest:full,full
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
 if has("win16") || has("win32")
-    set wildignore+=.git\*,.hg\*,.svn\*
+  set wildignore+=.git\*,.hg\*,.svn\*
 else
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+  set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 endif
 
 " Always show current position
@@ -100,20 +113,20 @@ set ruler
 " Ignore case when searching
 set ignorecase
 
-" When searching try to be smart about cases 
+" When searching try to be smart about cases
 set smartcase
 
 " Highlight search results
 set hlsearch
 
 " Makes search act like search in modern browsers
-set incsearch 
+set incsearch
 
 " For regular expressions turn magic on
 set magic
 
 " Show matching brackets when text indicator is over them
-set showmatch 
+set showmatch
 
 " How many tenths of a second to blink when matching brackets
 set mat=2
@@ -128,7 +141,7 @@ set title
 set list
 
 "
-" <===================== Colors and Fonts  ======================> 
+" <===================== Colors and Fonts  ======================>
 "
 
 " Enable colum ruler
@@ -139,12 +152,12 @@ syntax on
 
 " Enable 256 colors palette in Gnome Terminal
 if $COLORTERM == 'gnome-terminal'
-    set t_Co=256
+  set t_Co=256
 endif
 
 " Enable theme
 try
-    colorscheme molokai
+  colorscheme molokai
 catch
 endtry
 
@@ -156,7 +169,7 @@ set ffs=unix,dos,mac
 
 
 "
-" <===================== Text, Tab, Indent  ======================> 
+" <===================== Text, Tab, Indent  ======================>
 "
 
 " Use spaces instead of tabs
@@ -177,14 +190,14 @@ set textwidth=500
 set ai
 
 " Smart indent
-set si 
+set si
 
 " Wrap lines
 set wrap
 
 
 "
-" <===================== Visual mode ======================> 
+" <===================== Visual mode ======================>
 "
 
 " Visual mode pressing * or # searches for the current selection
@@ -194,7 +207,7 @@ vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
 
 "
-" <===================== Moving, Tabs, Windows, Buffers ======================> 
+" <===================== Moving, Tabs, Windows, Buffers ======================>
 "
 
 " Map <Leader> to ,
@@ -222,8 +235,8 @@ map <leader>h :bprevious<cr>
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove 
-map <leader>t<leader> :tabnext 
+map <leader>tm :tabmove
+map <leader>t<leader> :tabnext
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
@@ -238,7 +251,7 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
-" Specify the behavior when switching between buffers 
+" Specify the behavior when switching between buffers
 try
   set switchbuf=useopen,usetab,newtab
   set stal=2
@@ -247,7 +260,7 @@ endtry
 
 
 "
-" <===================== Status line ======================> 
+" <===================== Status line ======================>
 "
 
 " Always show the status line
@@ -255,7 +268,7 @@ set laststatus=2
 
 
 "
-" <===================== Spell checking  ======================> 
+" <===================== Spell checking  ======================>
 "
 
 " Pressing ,ss will toggle and untoggle spell checking
@@ -269,30 +282,30 @@ map <leader>s? z=
 
 
 "
-" <===================== Helper functions ======================> 
+" <===================== Helper functions ======================>
 "
 
 " Returns true if paste mode is enabled
 function! HasPaste()
-   if &paste
-       return 'PASTE MODE  '
-   endif
-   return ''
+  if &paste
+    return 'PASTE MODE  '
+  endif
+  return ''
 endfunction
 
 function! VisualSelection(direction, extra_filter) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
+  let l:saved_reg = @"
+  execute "normal! vgvy"
 
-    let l:pattern = escape(@", '\\/.*$^~[]')
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
+  let l:pattern = escape(@", '\\/.*$^~[]')
+  let l:pattern = substitute(l:pattern, "\n$", "", "")
 
-    if a:direction == 'gv'
-        call CmdLine("Ag \"" . l:pattern . "\" " )
-    elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
-    endif
+  if a:direction == 'gv'
+    call CmdLine("Ag \"" . l:pattern . "\" " )
+  elseif a:direction == 'replace'
+    call CmdLine("%s" . '/'. l:pattern . '/')
+  endif
 
-    let @/ = l:pattern
-    let @" = l:saved_reg
+  let @/ = l:pattern
+  let @" = l:saved_reg
 endfunction
