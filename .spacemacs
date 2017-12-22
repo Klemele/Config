@@ -7,6 +7,16 @@
 You should not put any user code in this function besides modifying the variable
 values."
   (setq-default
+   ;; indent level options
+   js2-basic-offset 2
+   js-indent-level 2
+   js3-indent-level 2
+   tab-width 2
+   typescript-indent-level 2
+   web-mode-markup-indent-offset 2
+   web-mode-css-indent-offset 2
+   web-mode-code-indent-offset 2
+   css-indent-offset 2
    ;; Base distribution to use. This is a layer contained in the directory
    ;; `+distribution'. For now available distributions are `spacemacs-base'
    ;; or `spacemacs'. (default 'spacemacs)
@@ -44,6 +54,7 @@ values."
      helm
      auto-completion
      ;; better-defaults
+     fasd
      emacs-lisp
      git
      markdown
@@ -316,19 +327,11 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (setq-default
-   ;; indent level options
-   js2-basic-offset 2
-   js-indent-level 2
-   typescript-indent-level 2
-   web-mode-markup-indent-offset 2
-   web-mode-css-indent-offset 2
-   web-mode-code-indent-offset 2
-   css-indent-offset 2
    fill-column 120
    fci-rule-color "#f49542"
    )
-  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-mode))
   (add-hook 'prog-mode-hook 'turn-on-fci-mode)
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-mode))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
