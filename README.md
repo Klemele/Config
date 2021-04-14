@@ -2,13 +2,18 @@
 
 ## PREREQUISITE
 
-* Vim & Vundle: https://github.com/VundleVim/Vundle.vim
-* Emacs25 & Spacemacs: https://github.com/syl20bnr/spacemacs
-* Zsh & Zpresto: https://github.com/sorin-ionescu/prezto
+* Zsh 
+* thefuck => https://github.com/nvbn/thefuck
+* starship => https://starship.rs/guide/
+* zsh-syntax-highlightingi => https://github.com/zsh-users/zsh-syntax-highlighting
+* zsh-autosuggestions => https://github.com/zsh-users/zsh-autosuggestions
+* zsh-autocomplete => https://github.com/marlonrichert/zsh-autocomplete
+* fasd => https://github.com/clvv/fasd
+* nvm => https://github.com/nvm-sh/nvm
 
-### Commit normalization
+## RECOMMENDED
 
- A commit shall be writen has follow:
-  - 'OS_element-name_type-of-conf: {some comment}'
+* Ag => https://github.com/ggreer/the_silver_searcher
+
 
 
